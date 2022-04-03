@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      let txt1 = "Dog12, CAT3, LiOn7, DolphiN11, fish6";
+      let txt2 = "PIG17, bear29, BiRd8";
+      let txt3 = "SNAKE39, donkey14";
+      let list = `${txt1},${txt2},${txt3} `;
+      let newList = ``;
+      wasNumber = false;
+      for (i in list) {
+        if (list[i] >= 1 && list[i] <= 9) {
+          if (!wasNumber) {
+            newList += `,`;
+            wasNumber = true;
+          }
+        } else {
+          wasNumber = false;
+        }
+        if (list[i] !== ` `) {
+          newList += list[i];
+        }
+      }
+
+      newList = newList.toLowerCase();
+      console.log(newList);
+      let theUltimateArray = newList.split(",");
+      console.log(theUltimateArray);
+
+      let options = prompt(`
+      welcome to the data base of the zoo,
+      plese chooze an option:
+      [1] - search animal by code.
+      [2] - search animal by name.
+      [3] - add new animal.
+      [4] - delete animal from the data base.
+      [5] - exit
+      `);
+
+      switch (options) {
+        case `1`:
+          inputCode = prompt(`enter animal code:`);
+          searchByCode(inputCode);
+          break;
+        case `2`:
+          searchName = prompt(`enter animal name:`);
+          searchByName(searchName);
+          break;
+        case `3`:
+          inputName = prompt(`enter animal name:`);
+          inputCode = prompt(`enter animal code:`);
+          addAnimal(inputName, inputCode);
+          break;
+        case `4`:
+          inputCode = prompt(`enter animal code:`);
+          deleteAnimal(inputCode);
+          break;
+          case `5`:
+            console.log(`Goodbye!!`);
+        default:
+          console.log(`error!!`);
+          break;
+      }
+
+      function searchByCode(inputCode) {
+        let result = "";
+        let noResult = true;
+        for (let i = 1; i < theUltimateArray.length; i += 2) {
+          if (inputCode == theUltimateArray[i]) {
+            result = theUltimateArray[i - 1];
+            noResult = false;
+            console.log(`
+            animal code : ${inputCode}
+            animal name : ${result}
+            `);
+          }
+        }
+        if (noResult) {
+          console.log(`there is no result :(`);
+        }
+      }
+
+      function searchByName(searchName) {
+        let result = "";
+        let noResult = true;
+        console.log(`
+        name to search: ${searchName}
+        animals that have been found:`);
+        searchName = searchName.toLowerCase();
+        for (let i = 0; i < theUltimateArray.length; i += 2) {
+          let arrString = theUltimateArray[i];
+          if (arrString.includes(searchName)) {
+            result = theUltimateArray[i];
+            console.log(`  
+                animal code : ${theUltimateArray[i + 1]}
+                animal name : ${result}
+                -------------
+                `);
+            noResult = false;
+          }
+        }
+        if (noResult) {
+          console.log(`there is no result :(`);
+        }
+      }
+
+      function addAnimal(inputName, inputCode) {
+        let noProblem = true;
+        for (i = 0; i < theUltimateArray.length; i += 2) {
+          if (theUltimateArray[i] === inputName) {
+            console.log(`the animal alredy in the list`);
+            noProblem = false;
+          }
+          for (i = 1; i < theUltimateArray.length; i += 2) {
+            if (theUltimateArray[i] === inputCode) {
+              console.log(`the code alredy in the list`);
+              noProblem = false;
+            }
+          }
+        }
+        if (noProblem) {
+          theUltimateArray.unshift(inputName, inputCode);
+        }
+        console.log(theUltimateArray);
+      }
+
+
+      function deleteAnimal(inputCode) {
+        let noResult = true;
+        for (i = 1; i < theUltimateArray.length; i += 2) {
+          if (theUltimateArray[i] === inputCode) {
+            theUltimateArray.splice(i - 1, 2);
+            console.log(theUltimateArray);
+            noResult = false;
+          }
+        }
+        if (noResult) {
+          console.log("the code is wrong");
+        }
+      }
+
+
+
+
+    </script>
+  </body>
+</html>
