@@ -1,5 +1,5 @@
 export default function Country(props) {
-    const {list} = props
+    // const {list} = props
 
-  return {list}.map(v=>{ <span>v.name.common</span>})
+  return <span>htht</span>
 }
